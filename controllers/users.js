@@ -21,10 +21,15 @@ getAllUsers = async (req, res) => {
  * @param {Response} res
  */
 postUser = async (req, res) => {
-  let data = req.body;
-
+  const {firstName, lastName, email, password} = req.body;
+ 
   try {
-    let user = await Users.create(data);
+    let user = await Users.create({
+      firstName : firstName,
+      lastName : lastName,
+      email : email,
+      password : password
+    });
     res.status(200).json(user);
   } catch (err) {
     console.log(err);
@@ -33,7 +38,7 @@ postUser = async (req, res) => {
 
 
 /**
- * @description gets specific use from database
+ * @description gets specific user from database
  * @param {Request} req
  * @param {Respond} res
  */
@@ -67,10 +72,9 @@ deleteUser = async (req, res) => {
 
 
 /**
- * @Description edit user from database
- * @param {any} req
- * @param {any} res
- * @returns {any}
+ * @Description edit user in database
+ * @param {Request} req
+ * @param {Response} res
  */
 editUser = async (req, res) => {
   let id = req.params.id;
